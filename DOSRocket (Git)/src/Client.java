@@ -155,7 +155,7 @@ public class Client extends javax.swing.JFrame {
 
         fdev.setFont(new java.awt.Font("Segoe UI", 2, 11)); // NOI18N
         fdev.setForeground(new java.awt.Color(204, 204, 204));
-        fdev.setText("The developer of the game");
+        fdev.setText("The developer/creator of the game");
         fdev.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 fdevFocusGained(evt);
