@@ -19,8 +19,11 @@ import java.sql.Statement;
 import java.sql.ResultSet;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.io.IOException;
+import org.apache.commons.exec.*;
 import javax.swing.DefaultListModel;
+
+
+
 
 public class Client extends javax.swing.JFrame {
 
@@ -35,9 +38,13 @@ public class Client extends javax.swing.JFrame {
      Font isFocused=new Font("Segoe UI", Font.PLAIN,11);
      Font notfocused=new Font("Segoe UI", Font.ITALIC,11);
      public String filepat;
+     public String filenam;
      Connection con;
-            Statement st;
-            ResultSet ras;
+            static Statement st;
+            static ResultSet ras;
+            
+            
+            
             
     /**
      * This method is called from within the constructor to initialize the form.
@@ -60,6 +67,7 @@ public class Client extends javax.swing.JFrame {
         floc = new javax.swing.JTextField();
         browsebutton = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -179,6 +187,14 @@ public class Client extends javax.swing.JFrame {
             }
         });
 
+        jButton2.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+        jButton2.setText("Run game");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -188,6 +204,8 @@ public class Client extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel4)
@@ -221,7 +239,9 @@ public class Client extends javax.swing.JFrame {
                     .addComponent(jLabel4)
                     .addComponent(browsebutton))
                 .addGap(18, 18, 18)
-                .addComponent(jButton1)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(21, Short.MAX_VALUE))
         );
 
@@ -400,7 +420,8 @@ public class Client extends javax.swing.JFrame {
         if(returnval==JFileChooser.APPROVE_OPTION)
         {
         File target=browze.getSelectedFile();
-            filepat=target.getPath();
+            filepat=target.getParent();
+            filenam=target.getName();
              floc.setForeground(Color.BLACK);
              floc.setFont(isFocused);
              floc.setText(filepat);
@@ -436,7 +457,7 @@ public class Client extends javax.swing.JFrame {
                         System.out.println("Database Found. Connecting...Connected Succcessfully.\n");
                     }
                 else{
-                    st.executeUpdate("create table dosrocket(name varchar(50),developer varchar(50), filepath varchar(256))");
+                    st.executeUpdate("create table dosrocket(name varchar(50),developer varchar(50), filepath varchar(5000),filename varchar(256))");
                 }
                
         }
@@ -450,7 +471,7 @@ public class Client extends javax.swing.JFrame {
         String filedev=fdev.getText();
         String filelocn=floc.getText();
         con.createStatement();
-        String query="insert into dosrocket values('"+filename+"','"+filedev+"','"+filelocn+"')";
+        String query="insert into dosrocket values('"+filename+"','"+filedev+"','"+filelocn+"','"+filenam+"')";
         int yo=st.executeUpdate(query);
         
         }
@@ -460,9 +481,8 @@ public class Client extends javax.swing.JFrame {
         }
         try{
      String que="select name from dosrocket";
-     Statement srt=con.createStatement();
-     ResultSet ro=null;
-      ras = srt.executeQuery(que);
+  
+      ras = st.executeQuery(que);
         DefaultListModel dlm=(DefaultListModel)listerine.getModel();
             while(ras.next()){
                 
@@ -475,14 +495,7 @@ public class Client extends javax.swing.JFrame {
             System.out.println("Error at point 4");
             e.printStackTrace();
         }
-       try{
-           ras.close();
-        st.close();
-        con.close();
-       }
-       catch (SQLException e){
-           e.printStackTrace();
-       }
+       
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
@@ -495,12 +508,31 @@ public class Client extends javax.swing.JFrame {
         this.setLocation(330,262);
     }//GEN-LAST:event_jPanel1FocusGained
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        String selgame=listerine.getSelectedValue().toString();
+        String qu="select filepath from dosrocket where name="+"'"+selgame+"'";
+        try{
+        ras=st.executeQuery(qu);
+        String gpath=ras.getString(1);
+        String gname=ras.getString(4);
+        String command="C:/Program Files/DOSBox-0.74/DOSBox.exe";
+        CommandLine cmdinstance=CommandLine.parse(command);
+        cmdinstance.addArgument("mount c:"+gpath);
+        cmdinstance.addArgument(gname);
+        DefaultExecutor exac=new DefaultExecutor();
+        int exitval=exac.execute(cmdinstance);
+        }
+        catch(Exception e){
+           e.printStackTrace();
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-       
-        
+      
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -539,6 +571,7 @@ public class Client extends javax.swing.JFrame {
     private javax.swing.JTextField floc;
     private javax.swing.JTextField fname;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
