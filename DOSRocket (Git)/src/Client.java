@@ -20,7 +20,7 @@ import java.sql.ResultSet;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.io.IOException;
-import javax.swing.table.*;
+import javax.swing.DefaultListModel;
 
 public class Client extends javax.swing.JFrame {
 
@@ -51,8 +51,6 @@ public class Client extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         FrameWindowBar = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        table = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -64,6 +62,9 @@ public class Client extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        listerine = new javax.swing.JList();
+        jPanel3 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("DOSRocket");
@@ -75,7 +76,7 @@ public class Client extends javax.swing.JFrame {
         });
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 153, 255)));
+        jPanel1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 153, 255), 1, true));
         jPanel1.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 jPanel1FocusGained(evt);
@@ -85,7 +86,7 @@ public class Client extends javax.swing.JFrame {
         FrameWindowBar.setBackground(new java.awt.Color(255, 255, 255));
         FrameWindowBar.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         FrameWindowBar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imglib/rocket 8bit.png"))); // NOI18N
-        FrameWindowBar.setText("DOSRocket, the free DOSBox launcher");
+        FrameWindowBar.setText("DOSRocket, the DOSBox front-end");
         FrameWindowBar.setToolTipText("DOSRocket-DOSBox Launcher");
         FrameWindowBar.setOpaque(true);
         FrameWindowBar.setPreferredSize(new java.awt.Dimension(60, 60));
@@ -109,25 +110,6 @@ public class Client extends javax.swing.JFrame {
                 FrameWindowBarComponentShown(evt);
             }
         });
-
-        table.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
-        table.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Name", "Developer", "Executable File Path"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane1.setViewportView(table);
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Add a game", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 11), new java.awt.Color(0, 153, 255))); // NOI18N
@@ -204,24 +186,23 @@ public class Client extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addComponent(jLabel4)
-                            .addGap(18, 18, 18)
-                            .addComponent(floc, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(browsebutton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel2)
-                                .addComponent(jLabel3))
-                            .addGap(68, 68, 68)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(fdev, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(fname, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGap(2, 2, 2)))
-                    .addComponent(jButton1))
-                .addContainerGap(19, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jButton1)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addGap(18, 18, 18)
+                        .addComponent(floc, javax.swing.GroupLayout.DEFAULT_SIZE, 317, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(browsebutton))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3))
+                        .addGap(68, 68, 68)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(fdev)
+                            .addComponent(fname)))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -244,6 +225,7 @@ public class Client extends javax.swing.JFrame {
                 .addContainerGap(21, Short.MAX_VALUE))
         );
 
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imglib/no.png"))); // NOI18N
         jLabel5.setText("Close");
         jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -255,6 +237,27 @@ public class Client extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         jLabel6.setText("DOSRocket Alpha build x86-64-mswindows © 2014 Mayukh Nair");
 
+        listerine.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Game list", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 11))); // NOI18N
+        listerine.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+        listerine.setModel(new DefaultListModel());
+        listerine.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        listerine.setToolTipText("");
+        jScrollPane1.setViewportView(listerine);
+
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Game information", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 11))); // NOI18N
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -263,15 +266,19 @@ public class Client extends javax.swing.JFrame {
                 .addGap(19, 19, 19)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 509, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(FrameWindowBar, javax.swing.GroupLayout.PREFERRED_SIZE, 447, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel5)))
-                .addGap(0, 24, Short.MAX_VALUE))
+                        .addGap(69, 69, 69)
+                        .addComponent(jLabel5))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 18, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -279,19 +286,22 @@ public class Client extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(FrameWindowBar, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5))
-                .addGap(9, 9, 9)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(27, 27, 27)
-                        .addComponent(jLabel1))
+                        .addGap(36, 36, 36)
+                        .addComponent(jLabel1)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(7, 7, 7)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(25, 25, 25)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 321, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGap(18, 18, 18)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel6)
-                .addContainerGap())
+                .addGap(19, 19, 19))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -403,7 +413,7 @@ public class Client extends javax.swing.JFrame {
         // TODO add your handling code here:
         boolean k=true;
         try{
-            Class.forName("com.mysql.jdbc.driver");
+            Class.forName("java.sql.Driver");
             con=(Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/mysql","root","root");
             st=con.createStatement();
         }
@@ -426,12 +436,12 @@ public class Client extends javax.swing.JFrame {
                         System.out.println("Database Found. Connecting...Connected Succcessfully.\n");
                     }
                 else{
-                    st.executeUpdate("create table dosrocket(name varchar(50),developer varchar(50), filepath varchar(256)");
+                    st.executeUpdate("create table dosrocket(name varchar(50),developer varchar(50), filepath varchar(256))");
                 }
                
         }
                 catch(SQLException e){
-                    System.out.println("Error at point 2");
+                    System.out.println("Error at point 2: "+e.getMessage());
                 }
        
         }
@@ -440,8 +450,8 @@ public class Client extends javax.swing.JFrame {
         String filedev=fdev.getText();
         String filelocn=floc.getText();
         con.createStatement();
-        String query="insert into dosrocket values('google','google inc','c:/google.exe')";
-        ras=st.executeQuery(query);
+        String query="insert into dosrocket values('"+filename+"','"+filedev+"','"+filelocn+"')";
+        int yo=st.executeUpdate(query);
         
         }
         catch(SQLException e){
@@ -449,14 +459,30 @@ public class Client extends javax.swing.JFrame {
             e.printStackTrace();
         }
         try{
-        DefaultTableModel model=(DefaultTableModel) table.getModel();
-            st.executeUpdate("select * from dosrocket");
-       
+     String que="select name from dosrocket";
+     Statement srt=con.createStatement();
+     ResultSet ro=null;
+      ras = srt.executeQuery(que);
+        DefaultListModel dlm=(DefaultListModel)listerine.getModel();
+            while(ras.next()){
+                
+                
+                dlm.addElement(ras.getString(1));
+            }
+        
         }
         catch(SQLException e){
             System.out.println("Error at point 4");
             e.printStackTrace();
         }
+       try{
+           ras.close();
+        st.close();
+        con.close();
+       }
+       catch (SQLException e){
+           e.printStackTrace();
+       }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
@@ -521,7 +547,8 @@ public class Client extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable table;
+    private javax.swing.JList listerine;
     // End of variables declaration//GEN-END:variables
 }
