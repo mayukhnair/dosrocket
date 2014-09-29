@@ -410,7 +410,7 @@ public class Client extends javax.swing.JFrame {
         // TODO add your handling code here:
         FrameWindowBar.setForeground(Color.LIGHT_GRAY);
         FrameWindowBar.setFont(notfocused);
-        FrameWindowBar.setText("DOSRocket, the DOSBox launcher");
+        FrameWindowBar.setText("DOSRocket, the DOSBox front-end");
     }//GEN-LAST:event_FrameWindowBarFocusLost
 
     private void browsebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_browsebuttonActionPerformed
@@ -457,7 +457,7 @@ public class Client extends javax.swing.JFrame {
                         System.out.println("Database Found. Connecting...Connected Succcessfully.\n");
                     }
                 else{
-                    st.executeUpdate("create table dosrocket(name varchar(50),developer varchar(50), filepath varchar(5000),filename varchar(256))");
+                    st.executeUpdate("create table dosrocket(name varchar(50) PRIMARY KEY,developer varchar(50), filepath varchar(5000),filename varchar(256))");
                 }
                
         }
@@ -511,21 +511,38 @@ public class Client extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         String selgame=listerine.getSelectedValue().toString();
-        String qu="select filepath from dosrocket where name="+"'"+selgame+"'";
+        String qu="select filename,filepath from dosrocket where name="+"'"+selgame+"'";
+        String gname=null,gpath=null;
         try{
-        ras=st.executeQuery(qu);
-        String gpath=ras.getString(1);
-        String gname=ras.getString(4);
-        String command="C:/Program Files/DOSBox-0.74/DOSBox.exe";
-        CommandLine cmdinstance=CommandLine.parse(command);
-        cmdinstance.addArgument("mount c:"+gpath);
+                ras=st.executeQuery(qu);
+                while(ras.next()){
+                    gname=ras.getString(1);
+                gpath=ras.getString(2);
+                }
+             String cdcommand="cd C:/Program Files/DOSBox-0.74";
+              
+             CommandLine cmdinstance=CommandLine.parse(cdcommand);
+             
+        cmdinstance.addArgument("dosbox");
+              cmdinstance.addArgument("mount c:"+gpath);
         cmdinstance.addArgument(gname);
+        
         DefaultExecutor exac=new DefaultExecutor();
-        int exitval=exac.execute(cmdinstance);
+        
+        int exitval2=exac.execute(cmdinstance);
         }
-        catch(Exception e){
-           e.printStackTrace();
+        catch (Exception e){
+            e.printStackTrace();
         }
+        try{
+            ras.close();    
+            st.close();
+            con.close();
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+        }
+        
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
