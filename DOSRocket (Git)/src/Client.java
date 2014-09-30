@@ -421,6 +421,7 @@ public class Client extends javax.swing.JFrame {
         {
         File target=browze.getSelectedFile();
             filepat=target.getParent();
+            filepat.replace("\\","\\\\\\");
             filenam=target.getName();
              floc.setForeground(Color.BLACK);
              floc.setFont(isFocused);
@@ -517,9 +518,12 @@ public class Client extends javax.swing.JFrame {
                 ras=st.executeQuery(qu);
                 while(ras.next()){
                     gname=ras.getString(1);
+                    gname.replace("\\", "\\\\");
+                    System.out.println(gname);
                 gpath=ras.getString(2);
+                System.out.println(gpath);
                 }
-             String cdcommand="cd C:/Program Files/DOSBox-0.74";
+             String cdcommand="cd C://Program Files//DOSBox-0.74";
               
              CommandLine cmdinstance=CommandLine.parse(cdcommand);
              
