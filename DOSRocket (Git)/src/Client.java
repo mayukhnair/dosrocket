@@ -373,7 +373,10 @@ public class Client extends javax.swing.JFrame {
         // TODO add your handling code here:
         fname.setForeground(Color.BLACK);
         fname.setFont(isFocused);
-        fname.setText("");
+        String p1=fname.getText();
+        if(p1.equals("The name of the game")){
+           fname.setText(""); 
+        }
         
     }//GEN-LAST:event_fnameFocusGained
 
@@ -381,7 +384,10 @@ public class Client extends javax.swing.JFrame {
         // TODO add your handling code here:
          fdev.setForeground(Color.BLACK);
         fdev.setFont(isFocused);
-        fdev.setText("");
+        String p2=fdev.getText();
+        if(p2.equals("The developer/creator of the game")){
+           fdev.setText(""); 
+        }
     }//GEN-LAST:event_fdevFocusGained
 
     private void fnameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_fnameFocusLost
@@ -396,9 +402,13 @@ public class Client extends javax.swing.JFrame {
 
     private void flocFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_flocFocusGained
         // TODO add your handling code here:
+        String p3=floc.getText();
+        if(p3.equals("Where is the main .exe file of the game stored?")){
+            floc.setText("");
+        }
         floc.setForeground(Color.BLACK);
         floc.setFont(isFocused);
-        floc.setText("");
+        
     }//GEN-LAST:event_flocFocusGained
 
     private void flocFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_flocFocusLost
@@ -421,12 +431,12 @@ public class Client extends javax.swing.JFrame {
         {
         File target=browze.getSelectedFile();
             filepat=target.getParent();
-            filepat.replace("\\","\\\\\\");
+            String yo=filepat.replace("\\","\\\\\\");
             filenam=target.getName();
              floc.setForeground(Color.BLACK);
              floc.setFont(isFocused);
-             floc.setText(filepat);
-            
+             floc.setText(yo);
+             
         }
         System.out.println(filepat);
     }//GEN-LAST:event_browsebuttonActionPerformed
@@ -518,12 +528,13 @@ public class Client extends javax.swing.JFrame {
                 ras=st.executeQuery(qu);
                 while(ras.next()){
                     gname=ras.getString(1);
-                    gname.replace("\\", "\\\\");
+                  
                     System.out.println(gname);
-                gpath=ras.getString(2);
-                System.out.println(gpath);
+                gpath=ras.getString(2)+"\\";
+                  String pop=gpath.replace("\\", "\\\\");
+                System.out.println(pop);
                 }
-             String cdcommand="cd C://Program Files//DOSBox-0.74";
+             String cdcommand="cd C:////Program Files////DOSBox-0.74";
               
              CommandLine cmdinstance=CommandLine.parse(cdcommand);
              
