@@ -71,7 +71,7 @@ public class Client extends javax.swing.JFrame {
         fdev = new javax.swing.JTextField();
         floc = new javax.swing.JTextField();
         browsebutton = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        SaveConfigButton = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -183,13 +183,13 @@ public class Client extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setBackground(new java.awt.Color(255, 255, 255));
-        jButton1.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imglib/spanner2.png"))); // NOI18N
-        jButton1.setText("Save Configuration");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        SaveConfigButton.setBackground(new java.awt.Color(255, 255, 255));
+        SaveConfigButton.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+        SaveConfigButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imglib/spanner2.png"))); // NOI18N
+        SaveConfigButton.setText("Save Configuration");
+        SaveConfigButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                SaveConfigButtonActionPerformed(evt);
             }
         });
 
@@ -209,7 +209,7 @@ public class Client extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jButton1)
+                        .addComponent(SaveConfigButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -246,7 +246,7 @@ public class Client extends javax.swing.JFrame {
                     .addComponent(browsebutton))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(SaveConfigButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(21, Short.MAX_VALUE))
         );
@@ -263,7 +263,7 @@ public class Client extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         jLabel6.setText("DOSRocket Alpha build x86-64-mswindows © 2014 Mayukh Nair");
 
-        listerine.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Game list", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 11))); // NOI18N
+        listerine.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Game list", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 11), new java.awt.Color(0, 102, 255))); // NOI18N
         listerine.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         listerine.setModel(new DefaultListModel());
         listerine.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
@@ -271,7 +271,7 @@ public class Client extends javax.swing.JFrame {
         jScrollPane1.setViewportView(listerine);
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Game information", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 11))); // NOI18N
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Game information", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 11), new java.awt.Color(0, 102, 255))); // NOI18N
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -386,7 +386,8 @@ public class Client extends javax.swing.JFrame {
     }//GEN-LAST:event_FrameWindowBarComponentShown
 
     private void formFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusGained
-        // TODO add your handling code here:
+        // Shit fails to do anything. Precisely why I hate Java-
+        // it promises you something else and delivers something else.
         this.setLocation(330,162);
     }//GEN-LAST:event_formFocusGained
 
@@ -462,9 +463,17 @@ public class Client extends javax.swing.JFrame {
         System.out.println(filepat);
     }//GEN-LAST:event_browsebuttonActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        boolean k=true;
+    private void SaveConfigButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveConfigButtonActionPerformed
+        // Deals with the database I/O. Checks if a "dosrocket" database is
+        // sitting in the "mysql" database that is on every MySQL installation.
+        // If not, creates one for future use. Grabs user input from text fields
+        // and records it to the database. The new entry is now loaded with the
+        // existing entries in the list.
+      Thread SaveConfigThread=new Thread(new Runnable()
+      {
+          public void run()
+          {
+              boolean k=true;
         try{
             Class.forName("java.sql.Driver");
             con=(Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/mysql","root","root");
@@ -527,22 +536,31 @@ public class Client extends javax.swing.JFrame {
             System.out.println("Error at point 4");
             e.printStackTrace();
         }
-       
-    }//GEN-LAST:event_jButton1ActionPerformed
+          }
+      }
+      );
+      SaveConfigThread.start();
+    }//GEN-LAST:event_SaveConfigButtonActionPerformed
 
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
-        // TODO add your handling code here:
+        // Of course, get rid of the program!
         System.exit(0);
     }//GEN-LAST:event_jLabel5MouseClicked
 
     private void jPanel1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jPanel1FocusGained
-        // TODO add your handling code here:
+        // Set JFrame to given coordinates. Oh wait, why am I 
+        // telling a JPanel to do this?
         this.setLocation(330,262);
     }//GEN-LAST:event_jPanel1FocusGained
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-        String selgame=listerine.getSelectedValue().toString();
+        // This thread grabs data for selected game from SQL Database and
+        // passes it on to the Apache Commons Exec API to call DOSBox
+        // and provide required parameters.
+        Thread RunGameThread=new Thread(new Runnable()
+        {
+            public void run(){
+                String selgame=listerine.getSelectedValue().toString();
         String qu="select filename,filepath from dosrocket where name="+"'"+selgame+"'";
         String gname=null,gpath=null;
         try{
@@ -578,7 +596,10 @@ public class Client extends javax.swing.JFrame {
         catch(SQLException e){
             e.printStackTrace();
         }
-        
+       
+            }
+        });
+        RunGameThread.start();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -625,11 +646,11 @@ public class Client extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel FrameWindowBar;
+    private javax.swing.JButton SaveConfigButton;
     private javax.swing.JButton browsebutton;
     private javax.swing.JTextField fdev;
     private javax.swing.JTextField floc;
     private javax.swing.JTextField fname;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
