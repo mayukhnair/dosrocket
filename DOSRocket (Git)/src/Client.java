@@ -11,14 +11,18 @@
 
 import com.darkprograms.speech.microphone.Microphone;
 import com.darkprograms.speech.recognizer.GSpeechDuplex;
+import com.darkprograms.speech.recognizer.GSpeechResponseListener;
+import com.darkprograms.speech.recognizer.GoogleResponse;
 import java.awt.Color;
 import java.awt.Font;
 import java.io.File;
+import java.nio.file.Files;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import javaFlacEncoder.FLACFileWriter;
 import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
 import org.apache.commons.exec.*;
@@ -43,7 +47,7 @@ public class Client extends javax.swing.JFrame {
      Connection con;
      static Statement st;
      static ResultSet ras;
-     GSpeechDuplex duplo;
+     GSpeechDuplex duplo=new GSpeechDuplex("AIzaSyCnl6MRydhw_5fLXIdASxkLJzcJh5iX0M4");
      Microphone micra;
      File audiofil;
      
@@ -604,8 +608,31 @@ public class Client extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        
-        duplo.addResponseListener(null);
+        Thread MicInputThread=new Thread(new Runnable(){
+            public void run(){
+                duplo.addResponseListener(new GSpeechResponseListener(){
+                    public void OnResponse(GoogleResponse googres){
+                        String parsedtext=googres.getResponse();
+                    }
+
+                    @Override
+                    public void onResponse(GoogleResponse gr) {
+                        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                    }
+                });
+                micra=new Microphone(FLACFileWriter.FLAC);
+                audiofil=new File("AudioTest.flac");
+                while(true){
+                    try{
+                        micra.captureAudioToFile(audiofil);
+                        Thread.sleep(5000);
+                        micra.close();
+                        Byte[] data=audiofil.
+                    }
+                }
+            }
+        });
+       
     }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
