@@ -613,6 +613,7 @@ public class Client extends javax.swing.JFrame {
                 duplo.addResponseListener(new GSpeechResponseListener(){
                     public void OnResponse(GoogleResponse googres){
                         String parsedtext=googres.getResponse();
+                        System.out.println(parsedtext);
                     }
 
                     @Override
@@ -627,12 +628,17 @@ public class Client extends javax.swing.JFrame {
                         micra.captureAudioToFile(audiofil);
                         Thread.sleep(5000);
                         micra.close();
-                        Byte[] data=audiofil.
+                        byte[] data=Files.readAllBytes(micra.getAudioFile().toPath());
+                        duplo.recognize(data, (int)micra.getAudioFormat().getSampleRate());
+                        micra.getAudioFile().delete();
+                    }
+                    catch (Exception ex){
+                        ex.printStackTrace();
                     }
                 }
             }
         });
-       
+       MicInputThread.start();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
