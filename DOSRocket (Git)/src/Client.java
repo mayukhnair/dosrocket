@@ -16,6 +16,7 @@ import com.darkprograms.speech.recognizer.GoogleResponse;
 import java.awt.Color;
 import java.awt.Font;
 import java.io.File;
+import java.io.FileInputStream;
 import java.nio.file.Files;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -524,12 +525,21 @@ public class Client extends javax.swing.JFrame {
             System.out.println("Error at point 3");
             e.printStackTrace();
         }
-        try{
+        
+          }
+      }
+      );
+      SaveConfigThread.start();
+      
+      Thread ViewConfigThread=new Thread(new Runnable(){
+          public void run(){
+              try{
      String que="select name from dosrocket";
   
       ras = st.executeQuery(que);
         DefaultListModel dlm=(DefaultListModel)listerine.getModel();
-            while(ras.next()){
+        dlm.removeAllElements();
+        while(ras.next()){
                 
                 
                 dlm.addElement(ras.getString(1));
@@ -541,9 +551,8 @@ public class Client extends javax.swing.JFrame {
             e.printStackTrace();
         }
           }
-      }
-      );
-      SaveConfigThread.start();
+      });
+      ViewConfigThread.start();
     }//GEN-LAST:event_SaveConfigButtonActionPerformed
 
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
@@ -577,13 +586,14 @@ public class Client extends javax.swing.JFrame {
                   String pop=gpath.replace("\\", "\\\\");
                 System.out.println(pop);
                 }
-             String cdcommand="cd C:////Program Files////DOSBox-0.74";
+                
+             String cdcommand="C:////Program Files////DOSBox-0.74////dosbox.exe";
               
              CommandLine cmdinstance=CommandLine.parse(cdcommand);
              
-        cmdinstance.addArgument("dosbox");
-              cmdinstance.addArgument("mount c:"+gpath);
-        cmdinstance.addArgument(gname);
+              cmdinstance.addArgument("-fullscreen");
+              cmdinstance.addArgument("-c mount c: c:");
+              cmdinstance.addArgument(gname);
         
         DefaultExecutor exac=new DefaultExecutor();
         
