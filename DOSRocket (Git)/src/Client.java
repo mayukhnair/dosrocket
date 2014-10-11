@@ -16,7 +16,8 @@ import com.darkprograms.speech.recognizer.GoogleResponse;
 import java.awt.Color;
 import java.awt.Font;
 import java.io.File;
-import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -35,9 +36,9 @@ public class Client extends javax.swing.JFrame {
     /**
      * Creates new form Client
      */
-    public Client() {
-       
-        initComponents();
+    public Client() 
+    {
+          initComponents();
     }
 
     int xmouse,ymouse;
@@ -45,6 +46,7 @@ public class Client extends javax.swing.JFrame {
      Font notfocused=new Font("Segoe UI", Font.ITALIC,11);
      public String filepat;
      public String filenam;
+     public String pop;
      Connection con;
      static Statement st;
      static ResultSet ras;
@@ -462,7 +464,7 @@ public class Client extends javax.swing.JFrame {
             filenam=target.getName();
              floc.setForeground(Color.BLACK);
              floc.setFont(isFocused);
-             floc.setText(yo);
+             floc.setText(filepat);
              
         }
         System.out.println(filepat);
@@ -525,15 +527,7 @@ public class Client extends javax.swing.JFrame {
             System.out.println("Error at point 3");
             e.printStackTrace();
         }
-        
-          }
-      }
-      );
-      SaveConfigThread.start();
-      
-      Thread ViewConfigThread=new Thread(new Runnable(){
-          public void run(){
-              try{
+         try{
      String que="select name from dosrocket";
   
       ras = st.executeQuery(que);
@@ -550,9 +544,13 @@ public class Client extends javax.swing.JFrame {
             System.out.println("Error at point 4");
             e.printStackTrace();
         }
+        
           }
-      });
-      ViewConfigThread.start();
+      }
+      );
+      SaveConfigThread.start();
+      
+      
     }//GEN-LAST:event_SaveConfigButtonActionPerformed
 
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
@@ -582,18 +580,34 @@ public class Client extends javax.swing.JFrame {
                     gname=ras.getString(1);
                   
                     System.out.println(gname);
-                gpath=ras.getString(2)+"\\";
-                  String pop=gpath.replace("\\", "\\\\");
+                gpath=ras.getString(2);
+                pop=gpath.replace("\\", "\\\\");
                 System.out.println(pop);
                 }
+                File conffile=new File("C://Windows//Temp//dosboxconfig.conf");
+                FileOutputStream fp=new FileOutputStream(conffile);
+                String conf="[autoexec] \n"
+                        + "mount c "+pop+"\n"
+                        + "c: \n"
+                        + gname;
+                System.out.println(conf);
+                try{
+                    conffile.createNewFile();
+                    byte[] confbytes=conf.getBytes();
+                    fp.write(confbytes);
+                    fp.flush();
+                    fp.close();
+                    conffile.deleteOnExit();
+                }
+                catch(IOException e){
+                    e.printStackTrace();
+                }
                 
-             String cdcommand="C:////Program Files////DOSBox-0.74////dosbox.exe";
+                
+                
+             String cdcommand="C:////Program Files////DOSBox-0.74////dosbox.exe -conf C:////Windows////Temp////dosboxconfig.conf";
               
              CommandLine cmdinstance=CommandLine.parse(cdcommand);
-             
-              cmdinstance.addArgument("-fullscreen");
-              cmdinstance.addArgument("-c mount c: c:");
-              cmdinstance.addArgument(gname);
         
         DefaultExecutor exac=new DefaultExecutor();
         
@@ -602,14 +616,8 @@ public class Client extends javax.swing.JFrame {
         catch (Exception e){
             e.printStackTrace();
         }
-        try{
-            ras.close();    
-            st.close();
-            con.close();
-        }
-        catch(SQLException e){
-            e.printStackTrace();
-        }
+        
+        
        
             }
         });
@@ -708,4 +716,7 @@ public class Client extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JList listerine;
     // End of variables declaration//GEN-END:variables
+
+    
 }
+
