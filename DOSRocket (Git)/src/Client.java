@@ -15,6 +15,9 @@ import com.darkprograms.speech.recognizer.GSpeechResponseListener;
 import com.darkprograms.speech.recognizer.GoogleResponse;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Frame;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -26,7 +29,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import javaFlacEncoder.FLACFileWriter;
 import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import org.apache.commons.exec.*;
 
 
@@ -39,6 +44,9 @@ public class Client extends javax.swing.JFrame {
     public Client() 
     {
           initComponents();
+          //this.setIconImage(new ImageIcon(getClass().getResource("/src/imglib/rocket 8bit.png")).getImage());
+          jScrollPane1.setBorder(null);
+          jScrollPane2.setBorder(null);
     }
 
     int xmouse,ymouse;
@@ -55,7 +63,9 @@ public class Client extends javax.swing.JFrame {
      File audiofil;
      
             
-            
+  
+     
+     
             
             
     /**
@@ -86,6 +96,15 @@ public class Client extends javax.swing.JFrame {
         listerine = new javax.swing.JList();
         jPanel3 = new javax.swing.JPanel();
         jButton3 = new javax.swing.JButton();
+        jPanel4 = new javax.swing.JPanel();
+        fullscreencheck = new javax.swing.JCheckBox();
+        keymappercheck = new javax.swing.JCheckBox();
+        socketcheck = new javax.swing.JCheckBox();
+        noconsolelog = new javax.swing.JCheckBox();
+        jPanel5 = new javax.swing.JPanel();
+        guidebold = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        guidetext = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("DOSRocket");
@@ -93,6 +112,11 @@ public class Client extends javax.swing.JFrame {
         addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 formFocusGained(evt);
+            }
+        });
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
             }
         });
 
@@ -122,6 +146,9 @@ public class Client extends javax.swing.JFrame {
             }
         });
         FrameWindowBar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                FrameWindowBarMouseEntered(evt);
+            }
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 FrameWindowBarMousePressed(evt);
             }
@@ -184,6 +211,11 @@ public class Client extends javax.swing.JFrame {
         browsebutton.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         browsebutton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imglib/folder_256.png"))); // NOI18N
         browsebutton.setText("Browse");
+        browsebutton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                browsebuttonMouseEntered(evt);
+            }
+        });
         browsebutton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 browsebuttonActionPerformed(evt);
@@ -194,6 +226,11 @@ public class Client extends javax.swing.JFrame {
         SaveConfigButton.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         SaveConfigButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imglib/spanner2.png"))); // NOI18N
         SaveConfigButton.setText("Save Configuration");
+        SaveConfigButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                SaveConfigButtonMouseEntered(evt);
+            }
+        });
         SaveConfigButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 SaveConfigButtonActionPerformed(evt);
@@ -202,6 +239,11 @@ public class Client extends javax.swing.JFrame {
 
         jButton2.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         jButton2.setText("Run game");
+        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jButton2MouseEntered(evt);
+            }
+        });
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -265,6 +307,9 @@ public class Client extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel5MouseClicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel5MouseEntered(evt);
+            }
         });
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
@@ -275,10 +320,20 @@ public class Client extends javax.swing.JFrame {
         listerine.setModel(new DefaultListModel());
         listerine.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         listerine.setToolTipText("");
+        listerine.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                listerineMouseEntered(evt);
+            }
+        });
         jScrollPane1.setViewportView(listerine);
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Game information", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 11), new java.awt.Color(0, 102, 255))); // NOI18N
+        jPanel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jPanel3MouseEntered(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -298,6 +353,121 @@ public class Client extends javax.swing.JFrame {
             }
         });
 
+        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "DOSBox VM settings", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 11), new java.awt.Color(0, 102, 255))); // NOI18N
+        jPanel4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jPanel4MouseEntered(evt);
+            }
+        });
+
+        fullscreencheck.setBackground(new java.awt.Color(255, 255, 255));
+        fullscreencheck.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+        fullscreencheck.setText("Go fullscreen");
+        fullscreencheck.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                fullscreencheckMouseEntered(evt);
+            }
+        });
+        fullscreencheck.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fullscreencheckActionPerformed(evt);
+            }
+        });
+
+        keymappercheck.setBackground(new java.awt.Color(255, 255, 255));
+        keymappercheck.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+        keymappercheck.setText("Use keymapper");
+        keymappercheck.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                keymappercheckMouseEntered(evt);
+            }
+        });
+
+        socketcheck.setBackground(new java.awt.Color(255, 255, 255));
+        socketcheck.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+        socketcheck.setText("Use nullmodem emulation");
+        socketcheck.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                socketcheckMouseEntered(evt);
+            }
+        });
+
+        noconsolelog.setBackground(new java.awt.Color(255, 255, 255));
+        noconsolelog.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+        noconsolelog.setText("Hide console log");
+        noconsolelog.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                noconsolelogMouseEntered(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(fullscreencheck)
+                    .addComponent(keymappercheck)
+                    .addComponent(socketcheck)
+                    .addComponent(noconsolelog))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(fullscreencheck)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(keymappercheck)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(socketcheck)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(noconsolelog)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel5.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Guide", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 11), new java.awt.Color(0, 102, 255))); // NOI18N
+        jPanel5.setForeground(new java.awt.Color(255, 255, 255));
+
+        guidebold.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
+        guidebold.setText("DOSRocket Guide will assist you!");
+
+        guidetext.setEditable(false);
+        guidetext.setColumns(20);
+        guidetext.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+        guidetext.setLineWrap(true);
+        guidetext.setRows(5);
+        guidetext.setText("Just hover your mouse on any \ncomponent in the DOSRocket \nwindow. Help text will \nautomatically come up here.");
+        guidetext.setBorder(null);
+        jScrollPane2.setViewportView(guidetext);
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(guidebold)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(guidebold)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -310,16 +480,23 @@ public class Client extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(FrameWindowBar, javax.swing.GroupLayout.PREFERRED_SIZE, 447, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(69, 69, 69)
-                                .addComponent(jLabel5))
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 18, Short.MAX_VALUE))
+                                .addGap(4, 4, 4)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(FrameWindowBar, javax.swing.GroupLayout.PREFERRED_SIZE, 771, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel5)))
+                        .addContainerGap())
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -339,10 +516,16 @@ public class Client extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 339, Short.MAX_VALUE))
+                        .addComponent(jScrollPane1))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)))))
                 .addGap(18, 18, 18)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -464,7 +647,7 @@ public class Client extends javax.swing.JFrame {
             filenam=target.getName();
              floc.setForeground(Color.BLACK);
              floc.setFont(isFocused);
-             floc.setText(filepat);
+             floc.setText(yo);
              
         }
         System.out.println(filepat);
@@ -608,7 +791,18 @@ public class Client extends javax.swing.JFrame {
              String cdcommand="C:////Program Files////DOSBox-0.74////dosbox.exe -conf C:////Windows////Temp////dosboxconfig.conf";
               
              CommandLine cmdinstance=CommandLine.parse(cdcommand);
-        
+        if(fullscreencheck.isSelected()==true){
+            cmdinstance.addArgument("-fullscreen");
+        }
+        if(keymappercheck.isSelected()==true){
+            cmdinstance.addArgument("-startmapper");
+        }
+        if(socketcheck.isSelected()==true){
+            cmdinstance.addArgument("-socket");
+        }
+        if(noconsolelog.isSelected()==true){
+            cmdinstance.addArgument("-noconsole");
+        }
         DefaultExecutor exac=new DefaultExecutor();
         
         int exitval2=exac.execute(cmdinstance);
@@ -617,11 +811,12 @@ public class Client extends javax.swing.JFrame {
             e.printStackTrace();
         }
         
-        
+    
        
             }
         });
         RunGameThread.start();
+        
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -658,6 +853,111 @@ public class Client extends javax.swing.JFrame {
         });
        MicInputThread.start();
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void fullscreencheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fullscreencheckActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fullscreencheckActionPerformed
+
+    private void FrameWindowBarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_FrameWindowBarMouseEntered
+        // TODO add your handling code here:
+        guidebold.setText("Frame Window Bar");
+        guidetext.setText("In absence of the normal window pane, this doubles up as the draggable window bar. Click, hold and drag to drag the window.");
+    }//GEN-LAST:event_FrameWindowBarMouseEntered
+
+    private void listerineMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listerineMouseEntered
+        // TODO add your handling code here:
+        guidebold.setText("Game List");
+        guidetext.setText("All of your saved game configurations will show up here. Select any one and press 'Run game' to run the game.");
+    }//GEN-LAST:event_listerineMouseEntered
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+         Thread LoadSavedConfig=new Thread(new Runnable()
+     {
+        public void run()
+        {
+        try{
+     String que="select name from dosrocket";
+  
+      ras = st.executeQuery(que);
+        DefaultListModel dlm=(DefaultListModel)listerine.getModel();
+        dlm.removeAllElements();
+        while(ras.next()){
+                
+                
+                dlm.addElement(ras.getString(1));
+            }
+        
+        }
+        catch(SQLException e){
+            System.out.println("Error at point 4");
+            e.printStackTrace();
+        }    
+        }
+             }
+             );
+         LoadSavedConfig.start();
+    }//GEN-LAST:event_formWindowOpened
+
+    private void jPanel3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel3MouseEntered
+        // TODO add your handling code here:
+        guidebold.setText("Game Information Display");
+        guidetext.setText("Information about the game you picked from the adjacent list will come up here.");
+    }//GEN-LAST:event_jPanel3MouseEntered
+
+    private void fullscreencheckMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fullscreencheckMouseEntered
+        // TODO add your handling code here:
+        guidebold.setText("Fullscreen mode");
+        guidetext.setText("Toggle to start DOSBox in fullscreen mode.");
+    }//GEN-LAST:event_fullscreencheckMouseEntered
+
+    private void keymappercheckMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_keymappercheckMouseEntered
+        // TODO add your handling code here:
+         guidebold.setText("Use keymapper");
+        guidetext.setText("Use a keymapper before you start playing. Recommended if your keyboard has an issue.");
+    }//GEN-LAST:event_keymappercheckMouseEntered
+
+    private void socketcheckMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_socketcheckMouseEntered
+        // TODO add your handling code here:
+         guidebold.setText("Use nullmodem emulation");
+        guidetext.setText("Change socket port to nullmodem emulation. Refer to 'Serial Multiplayer' section in the DOSBox User Manual for more help.");
+    }//GEN-LAST:event_socketcheckMouseEntered
+
+    private void noconsolelogMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_noconsolelogMouseEntered
+        // TODO add your handling code here:
+         guidebold.setText("Hide console log");
+        guidetext.setText("Hides the DOSBox Status Window when DOSBox starts up.");
+    }//GEN-LAST:event_noconsolelogMouseEntered
+
+    private void browsebuttonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_browsebuttonMouseEntered
+        // TODO add your handling code here:
+         guidebold.setText("Executable File Browser");
+        guidetext.setText("Find the required .EXE file of your game using this.");
+    }//GEN-LAST:event_browsebuttonMouseEntered
+
+    private void SaveConfigButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SaveConfigButtonMouseEntered
+        // TODO add your handling code here:
+         guidebold.setText("Save Configuration");
+        guidetext.setText("Once you've filled all details about your game above, hit this to register the entry in the DOSRocket database.");
+    }//GEN-LAST:event_SaveConfigButtonMouseEntered
+
+    private void jButton2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseEntered
+        // TODO add your handling code here:
+         guidebold.setText("Run game");
+        guidetext.setText("Select a game from the loaded game list, select any DOSBox VM options if needed, and then press this button to start DOSBox with your game.");
+    }//GEN-LAST:event_jButton2MouseEntered
+
+    private void jPanel4MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel4MouseEntered
+        // TODO add your handling code here:
+         guidebold.setText("DOSBox VM Settings");
+        guidetext.setText("Configure the DOSBox virtual machine environment before running.");
+    }//GEN-LAST:event_jPanel4MouseEntered
+
+    private void jLabel5MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseEntered
+        // TODO add your handling code here:
+         guidebold.setText("Close button");
+        guidetext.setText("Click to close DOSRocket. WARNING: If DOSBox game is running, it will close as well.");
+    }//GEN-LAST:event_jLabel5MouseEntered
 
     /**
      * @param args the command line arguments
@@ -702,6 +1002,9 @@ public class Client extends javax.swing.JFrame {
     private javax.swing.JTextField fdev;
     private javax.swing.JTextField floc;
     private javax.swing.JTextField fname;
+    private javax.swing.JCheckBox fullscreencheck;
+    private javax.swing.JLabel guidebold;
+    private javax.swing.JTextArea guidetext;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
@@ -713,8 +1016,14 @@ public class Client extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JCheckBox keymappercheck;
     private javax.swing.JList listerine;
+    private javax.swing.JCheckBox noconsolelog;
+    private javax.swing.JCheckBox socketcheck;
     // End of variables declaration//GEN-END:variables
 
     
