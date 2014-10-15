@@ -853,7 +853,7 @@ public class Client extends javax.swing.JFrame {
                 File conffile=new File("C://Windows//Temp//dosboxconfig.conf");
                 FileOutputStream fp=new FileOutputStream(conffile);
                 String conf="[autoexec] \n"
-                        + "mount c "+pop+"\n"
+                        + "mount c "+"\""+pop+"\""+"\n"
                         + "c: \n"
                         + gname;
                 System.out.println(conf);
