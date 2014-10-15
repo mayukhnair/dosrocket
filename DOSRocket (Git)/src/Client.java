@@ -15,9 +15,6 @@ import com.darkprograms.speech.recognizer.GSpeechResponseListener;
 import com.darkprograms.speech.recognizer.GoogleResponse;
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.Frame;
-import java.awt.Image;
-import java.awt.Toolkit;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -29,9 +26,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import javaFlacEncoder.FLACFileWriter;
 import javax.swing.DefaultListModel;
-import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
-import javax.swing.JFrame;
 import org.apache.commons.exec.*;
 
 
@@ -62,7 +57,7 @@ public class Client extends javax.swing.JFrame {
      Microphone micra;
      File audiofil;
      
-            
+    
   
      
      
@@ -105,6 +100,14 @@ public class Client extends javax.swing.JFrame {
         guidebold = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         guidetext = new javax.swing.JTextArea();
+        jPanel6 = new javax.swing.JPanel();
+        micicon = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        resp = new javax.swing.JLabel();
+        conf = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("DOSRocket");
@@ -297,7 +300,7 @@ public class Client extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(SaveConfigButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
@@ -468,6 +471,82 @@ public class Client extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        jPanel6.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Voice control", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 11), new java.awt.Color(0, 102, 255))); // NOI18N
+
+        micicon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imglib/micidle.png"))); // NOI18N
+        micicon.setToolTipText("Tap the mic!");
+        micicon.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                miciconMouseClicked(evt);
+            }
+        });
+
+        jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
+        jLabel8.setText("Format: open <name of the game>");
+
+        jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+        jLabel9.setText("You have 5 seconds.");
+
+        resp.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+        resp.setText("<null>");
+
+        conf.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+        conf.setText("<null>");
+
+        jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
+        jLabel12.setText("Recognised output:");
+
+        jLabel13.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
+        jLabel13.setText("Confidence level:");
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel12)
+                    .addComponent(jLabel13))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(conf)
+                    .addComponent(resp))
+                .addGap(66, 66, 66))
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGap(75, 75, 75)
+                        .addComponent(micicon))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel8))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGap(59, 59, 59)
+                        .addComponent(jLabel9)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(micicon)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel9)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(resp)
+                    .addComponent(jLabel12))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(conf)
+                    .addComponent(jLabel13))
+                .addContainerGap())
+        );
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -478,9 +557,9 @@ public class Client extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(4, 4, 4)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(4, 4, 4)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -490,10 +569,13 @@ public class Client extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(0, 0, Short.MAX_VALUE))))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(FrameWindowBar, javax.swing.GroupLayout.PREFERRED_SIZE, 771, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(FrameWindowBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel5)))
                         .addContainerGap())
@@ -527,7 +609,9 @@ public class Client extends javax.swing.JFrame {
                                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE)))))
                 .addGap(18, 18, 18)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel6)
@@ -556,7 +640,6 @@ public class Client extends javax.swing.JFrame {
         int x,y;
         x=evt.getXOnScreen();
         y=evt.getYOnScreen();
-        System.out.println(x+","+y);
         this.setLocation(x-xmouse, y-ymouse);
     }//GEN-LAST:event_FrameWindowBarMouseDragged
 
@@ -959,6 +1042,41 @@ public class Client extends javax.swing.JFrame {
         guidetext.setText("Click to close DOSRocket. WARNING: If DOSBox game is running, it will close as well.");
     }//GEN-LAST:event_jLabel5MouseEntered
 
+    private void miciconMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_miciconMouseClicked
+        // TODO add your handling code here:
+         Thread MicInputThread=new Thread(new Runnable(){
+            public void run(){
+                duplo.addResponseListener(new GSpeechResponseListener(){
+                    public void OnResponse(GoogleResponse googres){
+                        String parsedtext=googres.getResponse();
+                        resp.setText(parsedtext);
+                    }
+
+                    @Override
+                    public void onResponse(GoogleResponse gr) {
+                        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                    }
+                });
+                micra=new Microphone(FLACFileWriter.FLAC);
+                audiofil=new File("AudioTest.flac");
+                while(true){
+                    try{
+                        micra.captureAudioToFile(audiofil);
+                        Thread.sleep(5000);
+                        micra.close();
+                        byte[] data=Files.readAllBytes(micra.getAudioFile().toPath());
+                        duplo.recognize(data, (int)micra.getAudioFormat().getSampleRate());
+                        micra.getAudioFile().delete();
+                    }
+                    catch (Exception ex){
+                        ex.printStackTrace();
+                    }
+                }
+            }
+        });
+       MicInputThread.start();
+    }//GEN-LAST:event_miciconMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -999,6 +1117,7 @@ public class Client extends javax.swing.JFrame {
     private javax.swing.JLabel FrameWindowBar;
     private javax.swing.JButton SaveConfigButton;
     private javax.swing.JButton browsebutton;
+    private javax.swing.JLabel conf;
     private javax.swing.JTextField fdev;
     private javax.swing.JTextField floc;
     private javax.swing.JTextField fname;
@@ -1008,21 +1127,28 @@ public class Client extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JCheckBox keymappercheck;
     private javax.swing.JList listerine;
+    private javax.swing.JLabel micicon;
     private javax.swing.JCheckBox noconsolelog;
+    private javax.swing.JLabel resp;
     private javax.swing.JCheckBox socketcheck;
     // End of variables declaration//GEN-END:variables
 
