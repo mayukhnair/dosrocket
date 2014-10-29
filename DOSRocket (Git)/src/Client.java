@@ -51,8 +51,8 @@ public class Client extends javax.swing.JFrame {
      public String filenam;
      public String pop;
      Connection con;
-     static Statement st;
-     static ResultSet ras;
+     static Statement st,st2;
+     static ResultSet ras,ras2;
      GSpeechDuplex duplo=new GSpeechDuplex("AIzaSyCnl6MRydhw_5fLXIdASxkLJzcJh5iX0M4");
      Microphone micra;
      File audiofil;
@@ -966,7 +966,32 @@ public class Client extends javax.swing.JFrame {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
-         
+           Thread LoadRefresh=new Thread(new Runnable(){
+            public void run(){
+                try{
+                   Class.forName("java.sql.Driver");
+            Connection con2=(Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/mysql","root","root");
+                    st2=con2.createStatement();
+                    String que="select name from dosrocket";
+  
+      ras2 = st2.executeQuery(que);
+        DefaultListModel dlm=(DefaultListModel)listerine.getModel();
+        dlm.removeAllElements();
+        while(ras2.next()){
+                
+                
+                dlm.addElement(ras2.getString(1));
+            }
+        ras2.close();
+        st2.close();
+        }
+        catch(Exception e){
+            System.out.println("Error at point 4");
+            e.printStackTrace();
+        }
+            }
+        });
+        LoadRefresh.start(); 
     }//GEN-LAST:event_formWindowOpened
 
     private void jPanel3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel3MouseEntered
@@ -1069,19 +1094,23 @@ public class Client extends javax.swing.JFrame {
         Thread LoadRefresh=new Thread(new Runnable(){
             public void run(){
                 try{
-     String que="select name from dosrocket";
+                   Class.forName("java.sql.Driver");
+            Connection con2=(Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/mysql","root","root");
+                    st2=con2.createStatement();
+                    String que="select name from dosrocket";
   
-      ras = st.executeQuery(que);
+      ras2 = st2.executeQuery(que);
         DefaultListModel dlm=(DefaultListModel)listerine.getModel();
         dlm.removeAllElements();
-        while(ras.next()){
+        while(ras2.next()){
                 
                 
-                dlm.addElement(ras.getString(1));
+                dlm.addElement(ras2.getString(1));
             }
-        
+        ras2.close();
+        st2.close();
         }
-        catch(SQLException e){
+        catch(Exception e){
             System.out.println("Error at point 4");
             e.printStackTrace();
         }
