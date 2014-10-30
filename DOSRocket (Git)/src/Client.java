@@ -211,6 +211,7 @@ public class Client extends javax.swing.JFrame {
         floc.setFont(new java.awt.Font("Segoe UI", 2, 11)); // NOI18N
         floc.setForeground(new java.awt.Color(204, 204, 204));
         floc.setText("Where is the main .exe file of the game stored?");
+        floc.setMaximumSize(new java.awt.Dimension(6, 21));
         floc.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 flocFocusGained(evt);
@@ -241,6 +242,8 @@ public class Client extends javax.swing.JFrame {
         albumpath.setFont(new java.awt.Font("Segoe UI", 2, 11)); // NOI18N
         albumpath.setForeground(new java.awt.Color(204, 204, 204));
         albumpath.setText("Add some beautiful album artwork");
+        albumpath.setMaximumSize(new java.awt.Dimension(6, 21));
+        albumpath.setName(""); // NOI18N
 
         browsebutton1.setBackground(new java.awt.Color(255, 255, 255));
         browsebutton1.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
@@ -277,7 +280,7 @@ public class Client extends javax.swing.JFrame {
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel7)
                                 .addGap(70, 70, 70)
-                                .addComponent(albumpath))
+                                .addComponent(albumpath, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel4)
                                 .addGap(18, 18, 18)

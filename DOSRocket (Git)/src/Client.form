@@ -217,7 +217,7 @@
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
                               <Group type="103" groupAlignment="1" attributes="0">
-                                  <Group type="102" attributes="0">
+                                  <Group type="102" alignment="1" attributes="0">
                                       <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace min="-2" pref="70" max="-2" attributes="0"/>
                                       <Component id="albumpath" max="32767" attributes="0"/>
@@ -335,6 +335,9 @@
                   <Color blue="cc" green="cc" red="cc" type="rgb"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Where is the main .exe file of the game stored?"/>
+                <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                  <Dimension value="[6, 21]"/>
+                </Property>
               </Properties>
               <Events>
                 <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="flocFocusGained"/>
@@ -376,6 +379,10 @@
                   <Color blue="cc" green="cc" red="cc" type="rgb"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Add some beautiful album artwork"/>
+                <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                  <Dimension value="[6, 21]"/>
+                </Property>
+                <Property name="name" type="java.lang.String" value="" noResource="true"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="browsebutton1">
