@@ -15,6 +15,7 @@ import com.darkprograms.speech.recognizer.GSpeechResponseListener;
 import com.darkprograms.speech.recognizer.GoogleResponse;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Image;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -26,8 +27,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import javaFlacEncoder.FLACFileWriter;
 import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import org.apache.commons.exec.*;
+import java.awt.Image;
 
 
 
@@ -52,8 +55,8 @@ public class Client extends javax.swing.JFrame {
      public String artname;
      public String pop;
      Connection con;
-     static Statement st,st2;
-     static ResultSet ras,ras2;
+     static Statement st,st2,st3;
+     static ResultSet ras,ras2,ras3;
      GSpeechDuplex duplo=new GSpeechDuplex("AIzaSyCnl6MRydhw_5fLXIdASxkLJzcJh5iX0M4");
      Microphone micra;
      File audiofil;
@@ -92,6 +95,9 @@ public class Client extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         listerine = new javax.swing.JList();
         jPanel3 = new javax.swing.JPanel();
+        itname = new javax.swing.JLabel();
+        itdev = new javax.swing.JLabel();
+        italb = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         fullscreencheck = new javax.swing.JCheckBox();
         keymappercheck = new javax.swing.JCheckBox();
@@ -328,6 +334,9 @@ public class Client extends javax.swing.JFrame {
         listerine.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         listerine.setToolTipText("");
         listerine.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                listerineMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 listerineMouseEntered(evt);
             }
@@ -342,15 +351,37 @@ public class Client extends javax.swing.JFrame {
             }
         });
 
+        itname.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        itname.setText("Click on a game on the left");
+
+        itdev.setFont(new java.awt.Font("Segoe UI", 3, 11)); // NOI18N
+        itdev.setText("To get information and artwork");
+
+        italb.setBackground(new java.awt.Color(255, 255, 255));
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(116, 116, 116)
+                        .addComponent(italb, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(itname)
+                    .addComponent(itdev))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(italb, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(itname)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(itdev)
+                .addGap(23, 23, 23))
         );
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
@@ -689,9 +720,7 @@ public class Client extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 37, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -1159,6 +1188,41 @@ public class Client extends javax.swing.JFrame {
        
     }//GEN-LAST:event_browsebutton1ActionPerformed
 
+    private void listerineMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listerineMouseClicked
+        // TODO add your handling code here:
+        Thread GetInfoDisplay=new Thread(new Runnable(){
+            public void run(){
+                try{
+                     Class.forName("java.sql.Driver");
+            Connection con3=(Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/mysql","root","root");
+                    st3=con3.createStatement();
+                    DefaultListModel dlm2=(DefaultListModel)listerine.getModel();
+        String item=listerine.getSelectedValue().toString();
+        String que="select name, developer, albumpath from dosrocket where name="+"'"+item+"'";
+        ras3=st3.executeQuery(que);
+        while(ras3.next()){
+            String gamnam=ras3.getString(1);
+            String gamdev=ras3.getString(2);
+            String albart=ras3.getString(3);
+            itname.setText(gamnam);
+            itdev.setText("Developed by "+gamdev);
+            ImageIcon aa=new ImageIcon(albart);
+            Image nonscaledimg=aa.getImage();
+            int wid=160,hei=160;
+            Image scaledimg=nonscaledimg.getScaledInstance(italb.getWidth(), italb.getHeight(), Image.SCALE_SMOOTH);
+            aa=new ImageIcon(scaledimg);
+            italb.setIcon(aa);
+           
+        }
+                }
+                catch(Exception e){
+                    e.printStackTrace();
+                }
+            }
+        });
+        GetInfoDisplay.start();
+    }//GEN-LAST:event_listerineMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -1208,6 +1272,9 @@ public class Client extends javax.swing.JFrame {
     private javax.swing.JCheckBox fullscreencheck;
     private javax.swing.JLabel guidebold;
     private javax.swing.JTextArea guidetext;
+    private javax.swing.JLabel italb;
+    private javax.swing.JLabel itdev;
+    private javax.swing.JLabel itname;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
