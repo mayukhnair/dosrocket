@@ -88,8 +88,8 @@ public class Client extends javax.swing.JFrame {
         floc = new javax.swing.JTextField();
         browsebutton = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
-        albumpath = new javax.swing.JTextField();
         browsebutton1 = new javax.swing.JButton();
+        albumpath = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -239,12 +239,6 @@ public class Client extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         jLabel7.setText("Album art");
 
-        albumpath.setFont(new java.awt.Font("Segoe UI", 2, 11)); // NOI18N
-        albumpath.setForeground(new java.awt.Color(204, 204, 204));
-        albumpath.setText("Add some beautiful album artwork");
-        albumpath.setMaximumSize(new java.awt.Dimension(6, 21));
-        albumpath.setName(""); // NOI18N
-
         browsebutton1.setBackground(new java.awt.Color(255, 255, 255));
         browsebutton1.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         browsebutton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imglib/folder_256.png"))); // NOI18N
@@ -257,6 +251,19 @@ public class Client extends javax.swing.JFrame {
         browsebutton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 browsebutton1ActionPerformed(evt);
+            }
+        });
+
+        albumpath.setFont(new java.awt.Font("Segoe UI", 2, 11)); // NOI18N
+        albumpath.setForeground(new java.awt.Color(204, 204, 204));
+        albumpath.setText("Add some beautiful album artwork");
+        albumpath.setMaximumSize(new java.awt.Dimension(6, 21));
+        albumpath.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                albumpathFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                albumpathFocusLost(evt);
             }
         });
 
@@ -280,7 +287,7 @@ public class Client extends javax.swing.JFrame {
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel7)
                                 .addGap(70, 70, 70)
-                                .addComponent(albumpath, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(albumpath, javax.swing.GroupLayout.DEFAULT_SIZE, 339, Short.MAX_VALUE))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel4)
                                 .addGap(18, 18, 18)
@@ -309,10 +316,10 @@ public class Client extends javax.swing.JFrame {
                     .addComponent(browsebutton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel7)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(albumpath, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel7))
-                    .addComponent(browsebutton1))
+                        .addComponent(browsebutton1)
+                        .addComponent(albumpath, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -1201,6 +1208,14 @@ public class Client extends javax.swing.JFrame {
         });
         GetInfoDisplay.start();
     }//GEN-LAST:event_listerineMouseClicked
+
+    private void albumpathFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_albumpathFocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_albumpathFocusGained
+
+    private void albumpathFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_albumpathFocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_albumpathFocusLost
 
     /**
      * @param args the command line arguments
