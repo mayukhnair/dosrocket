@@ -57,7 +57,7 @@ public class Client extends javax.swing.JFrame {
      Connection con;
      static Statement st,st2,st3,st4;
      static ResultSet ras,ras2,ras3,ras4;
-     GSpeechDuplex duplo=new GSpeechDuplex("AIzaSyCnl6MRydhw_5fLXIdASxkLJzcJh5iX0M4");
+     GSpeechDuplex duplo=new GSpeechDuplex("AIzaSyCg9BvZAMlfG86A_t6QiIc7R1pfgzgLZD4");
      Microphone micra;
      File audiofil;
      
