@@ -2,8 +2,6 @@ DOSRocket, the free DOSBox client
 ==========================================================================================================
 All code and design © Mayukh Nair 2014. All rights reserved.
 
-DON'T ASK ME TO PUSH TO GITHUB, PLEASE.
-
 UTILIZES THE MYSQL JDBC DRIVER- REQUIRES MYSQL SERVER -available on www.mysql.com
 
 REQUIRES THAT THE USER HAS INSTALLED DOSBox VERSION 0.74 ON HIS/HER PC -available on www.dosbox.com
